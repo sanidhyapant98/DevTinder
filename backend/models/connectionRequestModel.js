@@ -21,4 +21,4 @@ connectionRequestSchema.index({fromUserId : 1, toUserId : 1}, {unique : true})
 
 const ConnectionRequest = mongoose.model("ConnectionRequest", connectionRequestSchema);
 
-export default ConnectionRequest;
+export { ConnectionRequest }

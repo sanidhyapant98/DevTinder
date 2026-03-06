@@ -1,4 +1,4 @@
-import ConnectionRequest from "../models/connectionRequest.js";
+import { ConnectionRequest } from "../models/connectionRequestModel.js";
 import { User } from "../models/userModel.js";
 
 const sendConnectionRequest = async (req, res) => {
