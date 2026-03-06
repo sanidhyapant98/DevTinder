@@ -18,7 +18,7 @@ const sendConnectionRequest = async (req, res) => {
                 message : "You cannot send connection request to yourself"
             })
         }
-        const allowedStatus = ["interested"]
+        const allowedStatus = ["interested", "ignored"]
         if(!allowedStatus.includes(status)){
             return res.status(400).json({
                 success : false,
@@ -53,4 +53,38 @@ const sendConnectionRequest = async (req, res) => {
     }
 }
 
-export default sendConnectionRequest;
+const reviewConnectionRequest = async (req, res)=>{
+    try{
+        const loggedInUserId = req.user._id
+        const {status, requestId} = req.params
+        const allowedStatus = ["accepted", "rejected"]
+        if(!allowedStatus.includes(status)){
+            return res.status(400).json({
+                success : false,
+                message : "Invalid status"
+            })
+        }
+        const connectionRequest = await ConnectionRequest.findOne({
+            _id : requestId,
+            toUserId : loggedInUserId,
+            status : "interested"
+        })
+        if(!connectionRequest){
+            return res.status(404).json({
+                success : false,
+                message : "Connection request not found"
+            })
+        }
+        connectionRequest.status = status
+        await connectionRequest.save()
+        return res.status(200).json({
+            success : true,
+            message : "Connection request reviewed successfully",
+            connectionRequest
+        })
+    }catch(err){
+        return res.status(500).send("Error : " + err.message);
+    }
+}
+
+export {sendConnectionRequest, reviewConnectionRequest};
