@@ -20,7 +20,7 @@ const initialState = {
   currentUserIndex: 0,
   isLoading: false,
   error: null,
-  page: 1,
+  currentPage: 0,
   hasMore: true,
 };
 
@@ -62,7 +62,7 @@ const feedSlice = createSlice({
           state.hasMore = false;
         }
         state.users = [...state.users, ...newUsers];
-        state.page += 1;
+        state.currentPage += 1;
       })
       .addCase(fetchFeed.rejected, (state, action) => {
         state.isLoading = false;

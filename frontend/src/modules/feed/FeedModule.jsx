@@ -12,7 +12,7 @@ import { Heart } from 'lucide-react';
 
 export default function FeedModule() {
   const dispatch = useDispatch();
-  const { users, currentUserIndex, isLoading, error, hasMore } = useSelector(
+  const { users, currentUserIndex, isLoading, error, hasMore, currentPage } = useSelector(
     (state) => state.feed
   );
   const { actionLoading } = useSelector((state) => state.requests);
@@ -49,9 +49,9 @@ export default function FeedModule() {
 
   const handleLoadMore = useCallback(() => {
     if (!isLoading && hasMore && currentUserIndex >= users.length - 3) {
-      dispatch(fetchFeed({ page: Math.floor(users.length / 10) + 1 }));
+      dispatch(fetchFeed({ page: currentPage + 1 }));
     }
-  }, [dispatch, isLoading, hasMore, currentUserIndex, users.length]);
+  }, [dispatch, isLoading, hasMore, currentUserIndex, currentPage]);
 
   useEffect(() => {
     handleLoadMore();

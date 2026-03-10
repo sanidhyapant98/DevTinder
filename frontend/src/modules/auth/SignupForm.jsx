@@ -51,6 +51,8 @@ export default function SignupForm({ onSubmit, isLoading }) {
     if (Object.keys(newErrors).length === 0) {
       if (typeof onSubmit === 'function') {
         onSubmit(formData);
+      } else if (process.env.NODE_ENV === 'development') {
+        console.warn('SignupForm: onSubmit prop is not a function');
       }
     } else {
       setErrors(newErrors);
