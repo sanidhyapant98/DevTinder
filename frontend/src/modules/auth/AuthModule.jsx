@@ -29,11 +29,15 @@ export default function AuthModule() {
   };
 
   const handleSignup = (userData) => {
-    dispatch(signup(userData)).then(() => {
-      setMode('login');
-    });
+    dispatch(signup(userData))
+      .unwrap()
+      .then(() => {
+        setMode('login');
+      })
+      .catch(() => {
+        // Error is already in Redux state, no additional handling needed
+      });
   };
-
   const toggleMode = () => {
     setMode(mode === 'login' ? 'signup' : 'login');
     dispatch(clearError());

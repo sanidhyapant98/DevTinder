@@ -22,8 +22,16 @@ export default function SignupForm({ onSubmit, isLoading }) {
     else if (!formData.email.includes('@')) newErrors.email = 'Invalid email format';
     if (!formData.password) newErrors.password = 'Password is required';
     else if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters';
-    if (!formData.age) newErrors.age = 'Age is required';
-    else if (formData.age < 18) newErrors.age = 'Must be 18 or older';
+    if (!formData.age) {
+      newErrors.age = 'Age is required';
+    } else {
+      const ageNum = Number(formData.age);
+      if (Number.isNaN(ageNum)) {
+        newErrors.age = 'Age must be a number';
+      } else if (ageNum < 18) {
+        newErrors.age = 'Must be 18 or older';
+      }
+    }
     if (!formData.gender) newErrors.gender = 'Gender is required';
     return newErrors;
   };
@@ -54,13 +62,14 @@ export default function SignupForm({ onSubmit, isLoading }) {
       {/* Name fields */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-gray-700 text-sm font-semibold mb-2">
+          <label htmlFor="firstName" className="block text-gray-700 text-sm font-semibold mb-2">
             <User className="w-4 h-4 inline mr-2" />
             First Name
           </label>
           <input
             type="text"
             name="firstName"
+            id="firstName"
             value={formData.firstName}
             onChange={handleChange}
             className={`input-field ${errors.firstName ? 'border-red-500' : ''}`}
@@ -68,8 +77,7 @@ export default function SignupForm({ onSubmit, isLoading }) {
             disabled={isLoading}
           />
           {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
-        </div>
-        <div>
+        </div>        <div>
           <label className="block text-gray-700 text-sm font-semibold mb-2">Last Name</label>
           <input
             type="text"
@@ -123,10 +131,10 @@ export default function SignupForm({ onSubmit, isLoading }) {
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
             disabled={isLoading}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-          </button>
-        </div>
+          </button>        </div>
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
       </div>
 

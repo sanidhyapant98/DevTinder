@@ -32,11 +32,12 @@ export default function LoginForm({ onSubmit, isLoading }) {
 
       {/* Email */}
       <div>
-        <label className="block text-gray-700 text-sm font-semibold mb-2">
+        <label htmlFor="login-email" className="block text-gray-700 text-sm font-semibold mb-2">
           <Mail className="w-4 h-4 inline mr-2" />
           Email Address
         </label>
         <input
+          id="login-email"
           type="email"
           value={email}
           onChange={(e) => {
@@ -49,15 +50,15 @@ export default function LoginForm({ onSubmit, isLoading }) {
         />
         {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
       </div>
-
       {/* Password */}
       <div>
-        <label className="block text-gray-700 text-sm font-semibold mb-2">
+        <label htmlFor="login-password" className="block text-gray-700 text-sm font-semibold mb-2">
           <Lock className="w-4 h-4 inline mr-2" />
           Password
         </label>
         <div className="relative">
           <input
+            id="login-password"
             type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={(e) => {
@@ -73,13 +74,13 @@ export default function LoginForm({ onSubmit, isLoading }) {
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
             disabled={isLoading}
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
             {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
           </button>
         </div>
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
       </div>
-
       {/* Submit button */}
       <button
         type="submit"
