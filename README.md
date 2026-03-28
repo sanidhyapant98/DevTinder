@@ -2,7 +2,7 @@
 
 **Match-Mingle** is a modern matchmaking platform — a place where you can discover, connect, and collaborate with people from all walks of life. Whether you're looking for new friends, professional connections, or something more, Match-Mingle makes it easy.
 
-![Match-Mingle Hero Image](https://raw.githubusercontent.com/sanidhyapant98/DevTinder/main/frontend/public/hero-screenshot.png)
+![Match-Mingle Hero Image](https://raw.githubusercontent.com/sanidhyapant98/DevTinder/main/frontend/public/hero-screenshot.png) *(Note: Add your own project screenshot here)*
 
 ---
 
